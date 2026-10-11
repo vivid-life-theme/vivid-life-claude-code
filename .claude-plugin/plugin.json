@@ -1,0 +1,20 @@
+{
+  "name": "vivid-life-theme",
+  "displayName": "Vivid Life Theme",
+  "version": "0.1.0",
+  "description": "A multi-flavor color theme for Claude Code. 4 flavors × 6 variants = 24 themes. WCAG AA verified.",
+  "author": {
+    "name": "Michael van Laar",
+    "email": "michael@van-laar.de"
+  },
+  "homepage": "https://github.com/vivid-life-theme/vivid-life-claude-code",
+  "repository": "https://github.com/vivid-life-theme/vivid-life-claude-code",
+  "license": "MIT",
+  "keywords": [
+    "theme",
+    "color-theme",
+    "wcag",
+    "accessibility",
+    "vivid-life"
+  ]
+}

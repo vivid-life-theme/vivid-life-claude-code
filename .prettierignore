@@ -1,0 +1,3 @@
+# Generated — `npm run build` writes these; formatting them would break `npm run check`.
+themes/
+.claude-plugin/plugin.json

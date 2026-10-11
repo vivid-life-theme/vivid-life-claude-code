@@ -1,0 +1,33 @@
+name: CI
+
+# Contrast/distinctness gates (npm test) and generated-output drift
+# (npm run check) on every PR, so a foundation bump that breaks a gate or a
+# mapping change without a rebuild shows up before merge.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run check
+      - run: npm run format:check

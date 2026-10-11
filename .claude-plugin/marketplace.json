@@ -1,0 +1,16 @@
+{
+  "name": "vivid-life",
+  "description": "Vivid Life Theme for Claude Code: 4 flavors × 6 variants = 24 color themes, WCAG AA verified.",
+  "owner": {
+    "name": "Michael van Laar",
+    "email": "michael@van-laar.de"
+  },
+  "plugins": [
+    {
+      "name": "vivid-life-theme",
+      "source": "./",
+      "description": "24 Claude Code color themes generated from the Vivid Life design system.",
+      "category": "themes"
+    }
+  ]
+}
