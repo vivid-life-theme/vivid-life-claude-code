@@ -212,32 +212,18 @@ test("shimmers differ visibly from the colour they animate", () => {
   }
 });
 
-// Light canvases leave red and orange two AA rungs each, and the nearest
-// pair is 6.1–6.3 apart. A palette limit, not a mapping choice: held to
-// the foundation's `related` floor (5) instead of 7, like its own
-// `distinct.ansi.exempt` list.
-const SUBAGENT_EXEMPT = {
-  dawn: [["red", "orange"]],
-  noon: [["red", "orange"]],
-};
-
 test("subagent colours are told apart", () => {
-  // Their only job is to distinguish parallel agents — same ≥ 7 OKLab
-  // floor the foundation uses for syntax slots and ANSI rows.
+  // Their only job is to distinguish parallel agents — the foundation's
+  // ≥ 7 OKLab floor for named colours, with no exemptions.
   const name = (k) => k.replace("_FOR_SUBAGENTS_ONLY", "");
   for (const { flavor, variant, theme } of themes()) {
     const o = theme.overrides;
-    const exempt = SUBAGENT_EXEMPT[flavor] ?? [];
     for (const [i, a] of SUBAGENT_COLORS.entries()) {
       for (const b of SUBAGENT_COLORS.slice(i + 1)) {
-        const pair = [name(a), name(b)];
-        const min = exempt.some((e) => e.every((c) => pair.includes(c)))
-          ? 5
-          : 7;
         const d = deltaE(o[a], o[b]);
         assert.ok(
-          d >= min,
-          `${flavor}/${variant} ${pair.join(" vs ")} ΔE ${d.toFixed(1)}`,
+          d >= 7,
+          `${flavor}/${variant} ${name(a)} vs ${name(b)} ΔE ${d.toFixed(1)}`,
         );
       }
     }

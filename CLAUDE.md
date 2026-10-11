@@ -7,7 +7,7 @@ Claude Code port of the Vivid Life Theme design system (4 flavors × 6 variants 
 | File                                       | Purpose                                                                                |
 | ------------------------------------------ | -------------------------------------------------------------------------------------- |
 | `build.mjs`                                | Generates `themes/*.json` and `.claude-plugin/plugin.json`; `--check` fails on drift   |
-| `src/roles.mjs`                            | Claude Code token → foundation colour target, grouped by contrast gate                 |
+| `src/roles.mjs`                            | Claude Code token → foundation `app_roles` entry, grouped by contrast gate             |
 | `src/theme-template.mjs`                   | Pure `buildTheme(flavor, variant, tokens)`; resolves targets over `bg_terminal`        |
 | `src/theme-template.test.mjs`              | Token-name guard plus contrast and distinctness gates for all 24 themes                |
 | `.claude-plugin/marketplace.json`          | Single-plugin marketplace (`vivid-life`) so users can `/plugin install` from this repo |
@@ -35,8 +35,8 @@ Claude Code port of the Vivid Life Theme design system (4 flavors × 6 variants 
 ## Structure
 
 - `themes/*.json` — generated, one [custom theme](https://code.claude.com/docs/en/terminal-config#create-a-custom-theme) per flavor×variant (`vivid-life-<flavor>-<variant>.json`): `name` (`Vivid Life <Flavor> · <Variant>`), `base` (the flavor type, `dark` / `light`), `overrides`. Committed to git; the plugin loads them through the default `themes/` scan. **Never hand-edit.**
-- `src/roles.mjs` — the only place colour decisions live. Four gated groups: `TEXT` (4.5:1 on `bg_terminal`), `UI` (3:1), `BACKGROUNDS` (`fg`, `fg_subtle` and every syntax slot at 4.5:1 on them), `INVERSE` (4.5:1 on the accent and status colours).
-- `src/theme-template.mjs` — resolves targets with the foundation's `resolveColor()` over `{ surface: 'bg_terminal' }`, and adds `border.*`, `accent_on`, `shimmer:<target>` and `{ dark, light }` targets.
+- `src/roles.mjs` — maps Claude Code token names onto the foundation's `app_roles` (the colour decisions live there). Four gated groups: `TEXT` (4.5:1 on `bg_terminal`), `UI` (3:1), `BACKGROUNDS` (`fg`, `fg_subtle` and every syntax slot at 4.5:1 on them), `INVERSE` (4.5:1 on the accent and status colours).
+- `src/theme-template.mjs` — resolves targets with the foundation's `resolveColor()` over `{ surface: 'bg_terminal' }`, and expands the `app.<role>`, `mode.<name>` and `categorical.<name>` targets (with `emphasis.` in front for spinner highlights) into `resolveColor()` targets.
 
 ## References
 
@@ -46,10 +46,9 @@ Use the `vivid-life-theme` skill to fetch the design-system tokens and README be
 
 - Gate everything against `surface.bg_terminal`, not `bg`. Claude Code draws on the terminal's background and can't set it.
 - Overlays come from the foundation's `overlay` recipes via `resolveColor(…, 'overlay.<name>', { surface: 'bg_terminal' })`. Don't keep a port-side alpha table.
-- `inverseText` follows the foundation's `--vl-accent-on` rule (gray-900 on dark flavors, gray-100 on light), not `readableOn(accent)`, which picks light text on Midnight's yellow.500 accent.
-- `userMessageBackgroundHover` uses `overlay.inactive_selection`, not `overlay.selected`: the selected-item wash only gates `fg`, and a message can carry `fg_subtle`.
-- Shimmer = same hue one rung further from the background (stays AA); at the end of the ramp, one rung back if that still clears 4.5:1.
-- Gate exemptions are explicit and listed in the test file (`SUBAGENT_EXEMPT`), mirroring the foundation's `distinct.ansi.exempt`. Add to them only for palette limits, with the reason.
+- Colour decisions belong to the foundation's `app_roles`; this port only chooses which role a Claude Code token takes. If a token has no fitting role, that's a foundation gap.
+- Shimmers are `emphasis.<role>` (same hue one rung further from the background, one rung back at the end of the ramp).
+- Subagent colours and the `ultrathink` rainbow use `app_roles.categorical`, which the foundation already holds to ΔE ≥ 7 with no exemptions.
 - The plugin name is `vivid-life-theme`; don't put `claude` in it (`claude plugin validate` flags names that read as Anthropic's own).
 
 ## Don't
