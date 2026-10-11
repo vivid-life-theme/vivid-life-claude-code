@@ -17,6 +17,8 @@ Claude Code port of the Vivid Life Theme design system (4 flavors × 6 variants 
 | `.claude/skills/vivid-life-theme/SKILL.md` | Verbatim copy of the foundation's `handoff/SKILL.md`                                   |
 | `.claudeignore`                            | Excludes `node_modules/` from Claude Code's project indexing                           |
 | `.github/workflows/ci.yml`                 | `npm test`, `npm run check` and `format:check` on every PR and push to `main`          |
+| `.github/workflows/release.yml`            | On push to `main`: bump version from Conventional Commits, tag, GitHub release         |
+| `.github/scripts/bump-version.sh`          | Bump logic: `package.json` + rebuilt `plugin.json`, so Claude Code sees an update      |
 | `.gitignore`                               | Git ignore patterns                                                                    |
 | `.prettierignore`                          | Keeps prettier off generated outputs                                                   |
 | `package.json`                             | npm scripts (`build`, `check`, `test`, `format`) and the design-system devDependency   |

@@ -1,0 +1,49 @@
+name: Release
+
+# Bumps the version from Conventional Commits on every push to main, so the
+# regenerated plugin.json carries a new version and Claude Code picks up the
+# update. Needs a baseline vX.Y.Z tag on main; without one this is a no-op.
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Compute version bump
+        id: bump
+        run: bash .github/scripts/bump-version.sh
+
+      - name: Push release
+        if: steps.bump.outputs.bump != 'none' && steps.bump.outputs.bump != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin HEAD:main --follow-tags
+          gh release create "v${{ steps.bump.outputs.new_version }}" --generate-notes
