@@ -16,6 +16,7 @@ Claude Code port of the Vivid Life Theme design system (4 flavors × 6 variants 
 | `.claude/settings.json`                    | Permissions, hooks, environment variables                                              |
 | `.claude/skills/vivid-life-theme/SKILL.md` | Verbatim copy of the foundation's `handoff/SKILL.md`                                   |
 | `.claudeignore`                            | Excludes `node_modules/` from Claude Code's project indexing                           |
+| `.githooks/pre-commit`                     | gitleaks secret scan on staged changes (`git config core.hooksPath .githooks`)         |
 | `.github/workflows/ci.yml`                 | `npm test`, `npm run check` and `format:check` on every PR and push to `main`          |
 | `.gitignore`                               | Git ignore patterns                                                                    |
 | `.prettierignore`                          | Keeps prettier off generated outputs                                                   |
@@ -32,8 +33,8 @@ Claude Code port of the Vivid Life Theme design system (4 flavors × 6 variants 
 ## Structure
 
 - `themes/*.json` — generated, one [custom theme](https://code.claude.com/docs/en/terminal-config#create-a-custom-theme) per flavor×variant (`vivid-life-<flavor>-<variant>.json`): `name` (`Vivid Life <Flavor> · <Variant>`), `base` (the flavor type, `dark` / `light`), `overrides`. Committed to git; the plugin loads them through the default `themes/` scan. **Never hand-edit.**
-- `src/roles.mjs` — the only place colour decisions live. Four groups, each with its own gate: `TEXT` (4.5:1 on `bg_terminal`), `UI` (3:1), `BACKGROUNDS` (`fg`, `fg_subtle` and every syntax slot at 4.5:1 on them), `INVERSE` (4.5:1 on the accent and status colours).
-- `src/theme-template.mjs` — resolves each target with the foundation's own `resolveColor()` (imported from `@vivid-life-theme/design-system/tools/build-tokens`), with `{ surface: 'bg_terminal' }` so `overlay.*` targets are flattened over the terminal background. Adds `border.*`, `accent_on`, `shimmer:<target>` and `{ dark, light }` targets.
+- `src/roles.mjs` — the only place colour decisions live. Four gated groups: `TEXT` (4.5:1 on `bg_terminal`), `UI` (3:1), `BACKGROUNDS` (`fg`, `fg_subtle` and every syntax slot at 4.5:1 on them), `INVERSE` (4.5:1 on the accent and status colours).
+- `src/theme-template.mjs` — resolves targets with the foundation's `resolveColor()` over `{ surface: 'bg_terminal' }`, and adds `border.*`, `accent_on`, `shimmer:<target>` and `{ dark, light }` targets.
 
 ## References
 
