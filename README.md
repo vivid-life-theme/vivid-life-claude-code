@@ -15,7 +15,7 @@ In time-of-day order. Claude Code draws on your terminal's background, so each f
 
 ## Variants
 
-Each flavor comes in six accent variants: **Red · Orange · Yellow · Green · Blue · Purple**. The variant sets the accent: the spinner, the assistant label, permission dialogs, picker highlights and the usage bar. Status colors, mode indicators and diff tints stay put across variants.
+Each flavor comes in six accent variants: **Red · Orange · Yellow · Green · Blue · Purple**. The variant sets the accent: the spinner, the assistant label, permission dialogs, picker highlights and the usage bar. Status colors, mode indicators and diff tints stay put across variants, so an error never turns purple just because you did.
 
 ## Install
 
@@ -54,19 +54,20 @@ Default: **Midnight · Purple**, matching the design system's overall default.
 
 The full map, with a reason for each choice, is in [`src/roles.mjs`](src/roles.mjs). In short:
 
-| Claude Code                                                 | Foundation                                                             |
-| ----------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `claude`, `permission`, `suggestion`, `rate_limit_fill`     | the variant accent                                                     |
-| `text` · `inactive` · `subtle`                              | `fg` · `fg_subtle` · `border.control`                                  |
-| `success` · `error` · `warning`                             | `semantic.success` · `semantic.danger` · `semantic.warning`            |
-| `planMode`, `ide`, `remember`, `background`                 | `semantic.info`                                                        |
-| `autoAccept`, `merged`, `skill` · `fastMode` · `bashBorder` | `hue.purple` · `hue.orange` · `hue.green`                              |
-| `promptBorder`                                              | `border.control`                                                       |
-| `diffAdded` / `diffRemoved`, `…Word`                        | `overlay.diff_{inserted,removed}_{line,text}`                          |
-| `selectionBg`                                               | `overlay.selection` (the terminal selection)                           |
-| `userMessageBackground` and the other message backgrounds   | `overlay.line_highlight`                                               |
-| subagent colors, `ultrathink` rainbow                       | the variant hues at their accent rung; pink and cyan from the ANSI row |
-| `…Shimmer`                                                  | the same hue one rung further from the background                      |
+| Claude Code                                                 | Foundation                                                                                                             |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `claude`, `permission`, `suggestion`, `rate_limit_fill`     | the variant accent                                                                                                     |
+| `text` · `inactive` · `subtle`                              | `fg` · `fg_subtle` · `fg_faint`                                                                                        |
+| `success` · `error` · `warning`                             | `semantic.success` · `semantic.danger` · `semantic.warning`                                                            |
+| `ide`, `remember`, `background`                             | `semantic.info`                                                                                                        |
+| `planMode`                                                  | `hue.blue`                                                                                                             |
+| `autoAccept`, `merged`, `skill` · `fastMode` · `bashBorder` | `hue.purple` · `hue.orange` · `hue.green`                                                                              |
+| `promptBorder`                                              | `border.control`                                                                                                       |
+| `diffAdded` / `diffRemoved`, `…Word`                        | `overlay.diff_{inserted,removed}_{line,text}`                                                                          |
+| `selectionBg`                                               | `overlay.selection` (the terminal selection)                                                                           |
+| `userMessageBackground` and the other message backgrounds   | `overlay.panel` (hover: `overlay.inactive_selection`)                                                                  |
+| subagent colors, `ultrathink` rainbow                       | the foundation's named colors; cyan is the ANSI slot, pink a light red on dark flavors and a deep purple on light ones |
+| `…Shimmer`                                                  | the same hue one rung further from the background                                                                      |
 
 Every overlay is flattened over the terminal background. The base preset is `dark` for Midnight and Twilight, `light` for Dawn and Noon.
 
@@ -82,8 +83,7 @@ Every overlay is flattened over the terminal background. The base preset is `dar
 
 Known limits:
 
-- **`subtle` is held to 3:1, not 4.5:1.** Claude Code uses it for its faintest hints and rules; the built-in presets put it near 2:1. It takes the foundation's `border.control`, the faintest grey the foundation gates.
-- **Red and Orange subagents on Dawn and Noon sit ΔE 6.3 / 6.1 apart.** A light canvas leaves each hue only two AA rungs. They're held to the foundation's "related" floor of 5 instead.
+- **`subtle` is held to 3:1, not 4.5:1.** Claude Code uses it for its faintest hints and rules; the built-in presets put it near 2:1. It takes the foundation's `fg_faint`, the faintest grey the foundation gates.
 - **There is no selection foreground.** Selected text keeps its own color. `fg`, `fg_subtle` and the syntax slots are gated on the selection; the accent and status colors aren't.
 - **Code inside diffs** is colored by Claude Code's syntax theme (`/theme` shows it, `ctrl+t` toggles it), which custom themes can't change. The diff backgrounds are gated against the foundation's syntax colors, not against that theme.
 - **Picker order.** `/theme` sorts themes by name, so Dawn lists before Midnight. Alphabetical order beats the laws of time.
