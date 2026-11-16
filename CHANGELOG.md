@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Theme names in the `/theme` picker now read `Vivid Life · Midnight · Purple` instead of `Vivid Life Midnight · Purple`, matching the other ports.
+- Design-system dependency bumped to 0.14.2; the generated themes are unchanged.
 
 ## [0.3.1] - 2026-11-16
 
