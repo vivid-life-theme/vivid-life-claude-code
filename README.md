@@ -65,7 +65,7 @@ The full map, with a reason for each choice, is in [`src/roles.mjs`](src/roles.m
 | `promptBorder`                                              | `border.control`                                                                                                       |
 | `diffAdded` / `diffRemoved`, `…Word`                        | `overlay.diff_{inserted,removed}_{line,text}`                                                                          |
 | `selectionBg`                                               | `overlay.selection` (the terminal selection)                                                                           |
-| `userMessageBackground` and the other message backgrounds   | `overlay.panel` (hover: `overlay.inactive_selection`)                                                                  |
+| `userMessageBackground` and the other message backgrounds   | `overlay.panel` (hover: `overlay.hover_tint`)                                                                          |
 | subagent colors, `ultrathink` rainbow                       | the foundation's named colors; cyan is the ANSI slot, pink a light red on dark flavors and a deep purple on light ones |
 | `…Shimmer`                                                  | the same hue one rung further from the background                                                                      |
 
