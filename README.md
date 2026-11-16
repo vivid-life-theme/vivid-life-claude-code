@@ -8,10 +8,10 @@ In time-of-day order. Claude Code draws on your terminal's background, so each f
 
 | Flavor       | Type  | Terminal background |
 | ------------ | ----- | ------------------- |
-| **Midnight** | dark  | `#0a0a0a`           |
-| **Twilight** | dark  | `#333333`           |
+| **Midnight** | dark  | `#171717`           |
+| **Twilight** | dark  | `#404040`           |
 | **Dawn**     | light | `#d4d4d4`           |
-| **Noon**     | light | `#ffffff`           |
+| **Noon**     | light | `#f5f5f5`           |
 
 ## Variants
 
@@ -77,14 +77,14 @@ Every overlay is flattened over the terminal background. The base preset is `dar
 
 - every text color, including the shimmer highlights, at **4.5:1**
 - borders, the usage bar and `subtle` at **3:1**
-- `fg`, `fg_subtle` and all twelve syntax slots at **4.5:1** on every background token (diffs, selection, message backgrounds)
+- `fg`, `fg_subtle` and all twelve syntax slots at **4.5:1** on every background token (diffs, message backgrounds), and at **3:1** on the selection
 - `inverseText` at **4.5:1** on the accent and the three status colors
 - the eight subagent colors at least ΔE 7 apart (OKLab × 100), the floor the foundation uses for syntax and ANSI rows
 
 Known limits:
 
 - **`subtle` is held to 3:1, not 4.5:1.** Claude Code uses it for its faintest hints and rules; the built-in presets put it near 2:1. It takes the foundation's `fg_faint`, the faintest grey the foundation gates.
-- **There is no selection foreground.** Selected text keeps its own color. `fg`, `fg_subtle` and the syntax slots are gated on the selection; the accent and status colors aren't.
+- **There is no selection foreground.** Selected text keeps its own color. `fg`, `fg_subtle` and the syntax slots are gated on the selection; the accent and status colors aren't. On Midnight and Twilight the selection is a visible accent tint, and the design system holds text on it to 3:1 rather than 4.5:1: that the selection shows matters more than how readable the text in it is for that moment.
 - **Code inside diffs** is colored by Claude Code's syntax theme (`/theme` shows it, `ctrl+t` toggles it), which custom themes can't change. The diff backgrounds are gated against the foundation's syntax colors, not against that theme.
 - **Picker order.** `/theme` sorts themes by name, so Dawn lists before Midnight. Alphabetical order beats the laws of time.
 

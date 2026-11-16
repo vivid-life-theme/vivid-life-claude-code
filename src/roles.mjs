@@ -22,6 +22,7 @@
 //   TEXT        ≥ 4.5:1 on bg_terminal
 //   UI          ≥ 3:1 on bg_terminal (borders, bars, faint hints)
 //   BACKGROUNDS fg, fg_subtle and every syntax slot ≥ 4.5:1 on them
+//               (3:1 on selectionBg: the role's text_min)
 //   INVERSE     ≥ 4.5:1 on the accent and the status colours
 //
 // Token names: https://code.claude.com/docs/en/terminal-config#create-a-custom-theme

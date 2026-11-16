@@ -35,7 +35,7 @@ Claude Code port of the Vivid Life Theme design system (4 flavors × 6 variants 
 ## Structure
 
 - `themes/*.json` — generated, one [custom theme](https://code.claude.com/docs/en/terminal-config#create-a-custom-theme) per flavor×variant (`vivid-life-<flavor>-<variant>.json`): `name` (`Vivid Life <Flavor> · <Variant>`), `base` (the flavor type, `dark` / `light`), `overrides`. Committed to git; the plugin loads them through the default `themes/` scan. **Never hand-edit.**
-- `src/roles.mjs` — maps Claude Code token names onto the foundation's `app_roles` (the colour decisions live there). Four gated groups: `TEXT` (4.5:1 on `bg_terminal`), `UI` (3:1), `BACKGROUNDS` (`fg`, `fg_subtle` and every syntax slot at 4.5:1 on them), `INVERSE` (4.5:1 on the accent and status colours).
+- `src/roles.mjs` — maps Claude Code token names onto the foundation's `app_roles` (the colour decisions live there). Four gated groups: `TEXT` (4.5:1 on `bg_terminal`), `UI` (3:1), `BACKGROUNDS` (`fg`, `fg_subtle` and every syntax slot at 4.5:1 on them, or the role's `text_min` — 3:1 for `selectionBg`), `INVERSE` (4.5:1 on the accent and status colours).
 - `src/theme-template.mjs` — resolves targets with the foundation's `resolveColor()` over `{ surface: 'bg_terminal' }`, and expands the `app.<role>`, `mode.<name>` and `categorical.<name>` targets (with `emphasis.` in front for spinner highlights) into `resolveColor()` targets.
 
 ## References

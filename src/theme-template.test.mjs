@@ -171,15 +171,20 @@ test("UI roles clear 3:1 on bg_terminal", () => {
   }
 });
 
-test("text and every syntax slot clear 4.5:1 on each background role", () => {
+// 4.5:1, or the app role's own `text_min` where the foundation lowers it:
+// the dark flavors' selection is a visible accent tint gated at 3:1
+// (design-system 0.14.0, README → Overlays).
+test("text and every syntax slot clear each background role's floor", () => {
   for (const { flavor, variant, f, theme } of themes()) {
     const fgs = { fg: f.text.fg, fg_subtle: f.text.fg_subtle, ...f.syntax };
-    for (const token of Object.keys(BACKGROUNDS)) {
+    for (const [token, target] of Object.entries(BACKGROUNDS)) {
+      const role = tokens.app_roles.roles[target.replace(/^app\./, "")];
+      const min = role.text_min ?? 4.5;
       for (const [name, fg] of Object.entries(fgs)) {
         const ratio = contrast(fg, theme.overrides[token]);
         assert.ok(
-          ratio >= 4.5,
-          `${flavor}/${variant} ${name} on ${token} ${ratio.toFixed(2)}:1`,
+          ratio >= min,
+          `${flavor}/${variant} ${name} on ${token} ${ratio.toFixed(2)}:1 (floor ${min}:1)`,
         );
       }
     }
