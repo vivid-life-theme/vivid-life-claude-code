@@ -62,7 +62,7 @@ export function buildTheme(flavor, variant, tokens) {
     }
   }
   return {
-    name: `Vivid Life ${label(flavor)} · ${label(variant)}`,
+    name: `Vivid Life · ${label(flavor)} · ${label(variant)}`,
     base: f.type,
     overrides,
   };

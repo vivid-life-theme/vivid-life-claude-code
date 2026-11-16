@@ -28,7 +28,7 @@ In Claude Code:
 /plugin install vivid-life-theme@vivid-life
 ```
 
-Then run `/theme` and pick one. All 24 appear as `Vivid Life <Flavor> · <Variant>`, marked _from vivid-life-theme_. `/plugin marketplace update vivid-life` picks up new releases.
+Then run `/theme` and pick one. All 24 appear as `Vivid Life · <Flavor> · <Variant>`, marked _from vivid-life-theme_. `/plugin marketplace update vivid-life` picks up new releases.
 
 ### Manual
 

@@ -105,7 +105,7 @@ test("theme has Claude Code's file shape", () => {
     assert.ok(BASES.includes(theme.base), `${flavor}/${variant} base`);
     assert.match(
       theme.name,
-      /^Vivid Life (Midnight|Twilight|Dawn|Noon) · (Red|Orange|Yellow|Green|Blue|Purple)$/,
+      /^Vivid Life · (Midnight|Twilight|Dawn|Noon) · (Red|Orange|Yellow|Green|Blue|Purple)$/,
     );
     assert.equal(slug(flavor, variant), `vivid-life-${flavor}-${variant}`);
   }
