@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-16
+
 ### Changed
 
 - Design-system dependency bumped to 0.14.1; themes regenerated. The terminal background every color is checked against is now the flavor's editor background (`#171717` / `#404040` / `#d4d4d4` / `#f5f5f5`), so the diff, message, memory and selection backgrounds change on Midnight, Twilight and Noon. Midnight and Twilight selections are now a visible accent tint; text on them is held to 3:1, as the design system specifies. Dawn is unchanged.
